@@ -41,6 +41,7 @@ class ASCIIHandler(http.server.SimpleHTTPRequestHandler):
                 
                 file_data = None
                 width = 80
+                style = 'standard'
                 
                 for part in parts:
                     if b'Content-Disposition: form-data' in part:
@@ -50,10 +51,13 @@ class ASCIIHandler(http.server.SimpleHTTPRequestHandler):
                         elif b'name="width"' in part:
                             width_start = part.find(b'\r\n\r\n') + 4
                             width = int(part[width_start:-2])
+                        elif b'name="style"' in part:
+                            style_start = part.find(b'\r\n\r\n') + 4
+                            style = part[style_start:-2].decode('utf-8')
                 
                 if file_data:
                     image = Image.open(io.BytesIO(file_data))
-                    ascii_art = self.image_to_ascii(image, width)
+                    ascii_art = self.image_to_ascii(image, width, style)
                     
                     response = {
                         'success': True,
@@ -75,17 +79,32 @@ class ASCIIHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
     
-    def image_to_ascii(self, image, width=80):
-        ascii_chars = "@%#*+=-:. "
+    def image_to_ascii(self, image, width=80, style='standard'):
+        ascii_styles = {
+            'standard': "@%#*+=-:. ",
+            'detailed': "@%#*+=-:. ",
+            'minimal': "@#*+-. ",
+            'artistic': "█▓▒░· "
+        }
         
-        image = image.convert('L')
-        image = image.resize((width, int(width * image.height / image.width / 2)))
+        ascii_chars = ascii_styles.get(style, ascii_styles['standard'])
+        
+        image = image.convert('RGBA')
+        image = image.resize((width, int(width * image.height / image.width / 2)), Image.Resampling.LANCZOS)
         
         pixels = image.getdata()
         ascii_str = ""
         
         for i, pixel in enumerate(pixels):
-            ascii_str += ascii_chars[pixel // 32]
+            r, g, b, a = pixel
+            
+            if a < 128:
+                ascii_str += " "
+            else:
+                brightness = int(0.299 * r + 0.587 * g + 0.114 * b)
+                char_index = min(brightness // (256 // len(ascii_chars)), len(ascii_chars) - 1)
+                ascii_str += ascii_chars[char_index]
+            
             if (i + 1) % image.width == 0:
                 ascii_str += "\n"
         
