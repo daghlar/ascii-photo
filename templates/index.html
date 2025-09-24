@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Арт Генератор</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ASCII Арт Генератор</h1>
+            <p>Загрузите изображение и получите его ASCII версию</p>
+        </header>
+        
+        <main>
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">📁</div>
+                        <h3>Выберите изображение</h3>
+                        <p>Перетащите файл сюда или нажмите для выбора</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                        <button type="button" id="selectFileBtn" class="btn btn-primary">Выбрать файл</button>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <label for="widthInput">Ширина ASCII (символов):</label>
+                    <input type="range" id="widthInput" min="20" max="120" value="80">
+                    <span id="widthValue">80</span>
+                </div>
+                
+                <button type="button" id="generateBtn" class="btn btn-success" disabled>Создать ASCII</button>
+            </div>
+            
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h3>Результат ASCII Арт:</h3>
+                <div class="ascii-container">
+                    <pre id="asciiOutput"></pre>
+                </div>
+                <div class="actions">
+                    <button type="button" id="copyBtn" class="btn btn-secondary">Копировать</button>
+                    <button type="button" id="downloadBtn" class="btn btn-secondary">Скачать</button>
+                    <button type="button" id="newImageBtn" class="btn btn-primary">Новое изображение</button>
+                </div>
+            </div>
+            
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Обработка изображения...</p>
+            </div>
+            
+            <div class="error" id="error" style="display: none;">
+                <p id="errorMessage"></p>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Поддерживаемые форматы: PNG, JPG, JPEG, GIF, BMP, WEBP</p>
+        </footer>
+    </div>
+    
+    <script src="/script.js"></script>
+</body>
+</html>
