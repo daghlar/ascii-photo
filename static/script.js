@@ -98,7 +98,7 @@ class AdvancedASCIIArtGenerator {
     
     processFile(file) {
         if (!this.isValidImageFile(file)) {
-            this.showError('Пожалуйста, выберите файл изображения (PNG, JPG, JPEG, GIF, BMP, WEBP)');
+            this.showError(getText('errorInvalidFile'));
             return;
         }
         
@@ -107,7 +107,7 @@ class AdvancedASCIIArtGenerator {
         this.previewBtn.disabled = false;
         this.hideError();
         this.updateUploadArea(file.name);
-        this.showNotification('Файл успешно загружен!', 'success');
+        this.showLocalizedNotification('successFileUploaded', 'success');
     }
     
     isValidImageFile(file) {
@@ -119,10 +119,10 @@ class AdvancedASCIIArtGenerator {
         const uploadContent = this.uploadArea.querySelector('.upload-content');
         uploadContent.innerHTML = `
             <div class="upload-icon">✅</div>
-            <h3>Файл выбран</h3>
+            <h3>${getText('fileSelected')}</h3>
             <p>${fileName}</p>
             <button type="button" id="selectFileBtn" class="btn btn-primary">
-                <span>🔄</span> Выбрать другой файл
+                <span>🔄</span> ${getText('selectAnotherFile')}
             </button>
         `;
         
@@ -166,7 +166,7 @@ class AdvancedASCIIArtGenerator {
     
     async showPreview() {
         if (!this.selectedFile) {
-            this.showError('Пожалуйста, выберите файл');
+            this.showError(getText('errorFileNotSelected'));
             return;
         }
         
@@ -176,9 +176,9 @@ class AdvancedASCIIArtGenerator {
         try {
             const asciiArt = await this.generateASCIIClient(this.selectedFile);
             this.displayASCII(asciiArt);
-            this.showNotification('Предпросмотр готов!', 'success');
+            this.showLocalizedNotification('successPreviewReady', 'success');
         } catch (error) {
-            this.showError('Ошибка создания предпросмотра');
+            this.showError(getText('errorProcessing'));
         } finally {
             this.hideLoading();
         }
@@ -186,7 +186,7 @@ class AdvancedASCIIArtGenerator {
     
     async generateASCII() {
         if (!this.selectedFile) {
-            this.showError('Пожалуйста, выберите файл');
+            this.showError(getText('errorFileNotSelected'));
             return;
         }
         
@@ -208,12 +208,12 @@ class AdvancedASCIIArtGenerator {
             
             if (result.success) {
                 this.displayASCII(result.ascii_art);
-                this.showNotification('ASCII арт создан успешно!', 'success');
+                this.showLocalizedNotification('successASCIICreated', 'success');
             } else {
-                this.showError(result.error || 'Произошла ошибка при обработке изображения');
+                this.showError(result.error || getText('errorProcessing'));
             }
         } catch (error) {
-            this.showError('Ошибка соединения с сервером');
+            this.showError(getText('errorConnection'));
         } finally {
             this.hideLoading();
         }
@@ -275,10 +275,10 @@ class AdvancedASCIIArtGenerator {
     async copyASCII() {
         try {
             await navigator.clipboard.writeText(this.asciiOutput.textContent);
-            this.showNotification('ASCII арт скопирован в буфер обмена!', 'success');
+            this.showLocalizedNotification('successCopied', 'success');
             this.animateButton(this.copyBtn);
         } catch (error) {
-            this.showError('Не удалось скопировать текст');
+            this.showError(getText('errorCopyFailed'));
         }
     }
     
@@ -295,7 +295,7 @@ class AdvancedASCIIArtGenerator {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
         
-        this.showNotification('ASCII арт скачан!', 'success');
+        this.showLocalizedNotification('successDownloaded', 'success');
         this.animateButton(this.downloadBtn);
     }
     
@@ -305,10 +305,10 @@ class AdvancedASCIIArtGenerator {
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: 'Мой ASCII арт',
+                    title: getText('title'),
                     text: asciiText,
                 });
-                this.showNotification('ASCII арт поделен!', 'success');
+                this.showLocalizedNotification('successShared', 'success');
             } catch (error) {
                 this.fallbackShare(asciiText);
             }
@@ -318,14 +318,14 @@ class AdvancedASCIIArtGenerator {
     }
     
     fallbackShare(asciiText) {
-        const shareText = `Посмотрите на мой ASCII арт:\n\n${asciiText}\n\nСоздано с помощью ASCII Art Generator`;
+        const shareText = `${getText('title')}:\n\n${asciiText}\n\nASCII Art Generator`;
         
         if (navigator.clipboard) {
             navigator.clipboard.writeText(shareText).then(() => {
-                this.showNotification('Текст для поделиться скопирован!', 'success');
+                this.showLocalizedNotification('successCopied', 'success');
             });
         } else {
-            this.showError('Функция поделиться недоступна в вашем браузере');
+            this.showError(getText('errorShareUnavailable'));
         }
     }
     
@@ -340,15 +340,15 @@ class AdvancedASCIIArtGenerator {
         const uploadContent = this.uploadArea.querySelector('.upload-content');
         uploadContent.innerHTML = `
             <div class="upload-icon">📁</div>
-            <h3>Выберите изображение</h3>
-            <p>Перетащите файл сюда или нажмите для выбора</p>
+            <h3>${getText('selectImage')}</h3>
+            <p>${getText('dragDrop')}</p>
             <button type="button" id="selectFileBtn" class="btn btn-primary">
-                <span>📂</span> Выбрать файл
+                <span>📂</span> ${getText('selectFile')}
             </button>
         `;
         
         document.getElementById('selectFileBtn').addEventListener('click', () => this.fileInput.click());
-        this.showNotification('Форма сброшена', 'info');
+        this.showLocalizedNotification('successFormReset', 'info');
     }
     
     handleKeyboard(event) {
@@ -407,6 +407,11 @@ class AdvancedASCIIArtGenerator {
         setTimeout(() => {
             this.notification.style.display = 'none';
         }, 3000);
+    }
+    
+    showLocalizedNotification(key, type = 'success') {
+        const message = getText(key);
+        this.showNotification(message, type);
     }
     
     animateButton(button) {

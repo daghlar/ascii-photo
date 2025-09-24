@@ -11,8 +11,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>🎨 ASCII Арт Генератор</h1>
-            <p>Превратите ваши изображения в потрясающие ASCII произведения искусства</p>
+            <div class="language-selector">
+                <button class="lang-btn" onclick="setLanguage('ru')" id="lang-ru">🇷🇺</button>
+                <button class="lang-btn" onclick="setLanguage('en')" id="lang-en">🇺🇸</button>
+                <button class="lang-btn" onclick="setLanguage('tr')" id="lang-tr">🇹🇷</button>
+            </div>
+            <h1 id="main-title">🎨 ASCII Арт Генератор</h1>
+            <p id="main-subtitle">Превратите ваши изображения в потрясающие ASCII произведения искусства</p>
         </header>
         
         <main>
@@ -20,70 +25,70 @@
                 <div class="upload-area" id="uploadArea">
                     <div class="upload-content">
                         <div class="upload-icon">📁</div>
-                        <h3>Выберите изображение</h3>
-                        <p>Перетащите файл сюда или нажмите для выбора</p>
+                        <h3 id="upload-title">Выберите изображение</h3>
+                        <p id="upload-subtitle">Перетащите файл сюда или нажмите для выбора</p>
                         <input type="file" id="fileInput" accept="image/*" hidden>
                         <button type="button" id="selectFileBtn" class="btn btn-primary">
-                            <span>📂</span> Выбрать файл
+                            <span>📂</span> <span id="select-file-btn">Выбрать файл</span>
                         </button>
                     </div>
                 </div>
                 
                 <div class="controls">
-                    <label for="widthInput">Ширина ASCII (символов):</label>
+                    <label for="widthInput" id="width-label">Ширина ASCII (символов):</label>
                     <input type="range" id="widthInput" min="20" max="120" value="80">
                     <span id="widthValue">80</span>
                     
-                    <label for="styleSelect">Стиль ASCII:</label>
+                    <label for="styleSelect" id="style-label">Стиль ASCII:</label>
                     <select id="styleSelect" class="btn btn-secondary">
-                        <option value="standard">Стандартный</option>
-                        <option value="detailed">Детальный</option>
-                        <option value="minimal">Минималистичный</option>
-                        <option value="artistic">Художественный</option>
+                        <option value="standard" id="standard-option">Стандартный</option>
+                        <option value="detailed" id="detailed-option">Детальный</option>
+                        <option value="minimal" id="minimal-option">Минималистичный</option>
+                        <option value="artistic" id="artistic-option">Художественный</option>
                     </select>
                     
-                    <label for="colorSelect">Цветовая схема:</label>
+                    <label for="colorSelect" id="color-label">Цветовая схема:</label>
                     <select id="colorSelect" class="btn btn-secondary">
-                        <option value="red-black">Красный-Черный</option>
-                        <option value="white-black">Белый-Черный</option>
-                        <option value="black-white">Черный-Белый</option>
+                        <option value="red-black" id="red-black-option">Красный-Черный</option>
+                        <option value="white-black" id="white-black-option">Белый-Черный</option>
+                        <option value="black-white" id="black-white-option">Черный-Белый</option>
                     </select>
                 </div>
                 
                 <div class="action-buttons">
                     <button type="button" id="generateBtn" class="btn btn-success" disabled>
-                        <span>✨</span> Создать ASCII
+                        <span>✨</span> <span id="create-ascii-btn">Создать ASCII</span>
                     </button>
                     <button type="button" id="previewBtn" class="btn btn-warning" disabled>
-                        <span>👁️</span> Предпросмотр
+                        <span>👁️</span> <span id="preview-btn">Предпросмотр</span>
                     </button>
                 </div>
             </div>
             
             <div class="result-section" id="resultSection" style="display: none;">
-                <h3>🎨 Ваш ASCII Арт готов!</h3>
+                <h3 id="result-title">🎨 Ваш ASCII Арт готов!</h3>
                 <div class="ascii-container">
                     <pre id="asciiOutput"></pre>
                 </div>
                 <div class="actions">
                     <button type="button" id="copyBtn" class="btn btn-secondary">
-                        <span>📋</span> Копировать
+                        <span>📋</span> <span id="copy-btn">Копировать</span>
                     </button>
                     <button type="button" id="downloadBtn" class="btn btn-secondary">
-                        <span>💾</span> Скачать
+                        <span>💾</span> <span id="download-btn">Скачать</span>
                     </button>
                     <button type="button" id="shareBtn" class="btn btn-primary">
-                        <span>🔗</span> Поделиться
+                        <span>🔗</span> <span id="share-btn">Поделиться</span>
                     </button>
                     <button type="button" id="newImageBtn" class="btn btn-warning">
-                        <span>🔄</span> Новое изображение
+                        <span>🔄</span> <span id="new-image-btn">Новое изображение</span>
                     </button>
                 </div>
             </div>
             
             <div class="loading" id="loading" style="display: none;">
                 <div class="spinner"></div>
-                <p>Обработка изображения...</p>
+                <p id="processing-text">Обработка изображения...</p>
             </div>
             
             <div class="error" id="error" style="display: none;">
@@ -91,39 +96,40 @@
             </div>
             
             <div class="info-section">
-                <h3>💡 Советы для лучшего результата</h3>
+                <h3 id="tips-title">💡 Советы для лучшего результата</h3>
                 <div class="tips-grid">
                     <div class="tip-card">
                         <div class="tip-icon">🖼️</div>
-                        <h4>Качество изображения</h4>
-                        <p>Используйте четкие изображения с хорошим контрастом для лучшего результата</p>
+                        <h4 id="quality-tip">Качество изображения</h4>
+                        <p id="quality-desc">Используйте четкие изображения с хорошим контрастом для лучшего результата</p>
                     </div>
                     <div class="tip-card">
                         <div class="tip-icon">📏</div>
-                        <h4>Размер ASCII</h4>
-                        <p>Экспериментируйте с шириной от 40 до 100 символов для оптимального качества</p>
+                        <h4 id="size-tip">Размер ASCII</h4>
+                        <p id="size-desc">Экспериментируйте с шириной от 40 до 100 символов для оптимального качества</p>
                     </div>
                     <div class="tip-card">
                         <div class="tip-icon">🎨</div>
-                        <h4>Стили ASCII</h4>
-                        <p>Попробуйте разные стили ASCII для различных художественных эффектов</p>
+                        <h4 id="style-tip">Стили ASCII</h4>
+                        <p id="style-desc">Попробуйте разные стили ASCII для различных художественных эффектов</p>
                     </div>
                     <div class="tip-card">
                         <div class="tip-icon">📱</div>
-                        <h4>Мобильные устройства</h4>
-                        <p>Приложение полностью адаптировано для работы на смартфонах и планшетах</p>
+                        <h4 id="mobile-tip">Мобильные устройства</h4>
+                        <p id="mobile-desc">Приложение полностью адаптировано для работы на смартфонах и планшетах</p>
                     </div>
                 </div>
             </div>
         </main>
         
         <footer>
-            <p>Поддерживаемые форматы: PNG, JPG, JPEG, GIF, BMP, WEBP • Создано с ❤️ для любителей ASCII искусства</p>
+            <p id="supported-formats">Поддерживаемые форматы: PNG, JPG, JPEG, GIF, BMP, WEBP • Создано с ❤️ для любителей ASCII искусства</p>
         </footer>
     </div>
     
     <div id="notification" class="notification" style="display: none;"></div>
     
+    <script src="/languages.js"></script>
     <script src="/script.js"></script>
 </body>
 </html>

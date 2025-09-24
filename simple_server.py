@@ -27,6 +27,12 @@ class ASCIIHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             with open('static/script.js', 'r', encoding='utf-8') as f:
                 self.wfile.write(f.read().encode('utf-8'))
+        elif self.path == '/languages.js':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/javascript')
+            self.end_headers()
+            with open('static/languages.js', 'r', encoding='utf-8') as f:
+                self.wfile.write(f.read().encode('utf-8'))
         else:
             super().do_GET()
     
