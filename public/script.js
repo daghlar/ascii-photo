@@ -425,6 +425,18 @@ class AdvancedASCIIArtGenerator {
 document.addEventListener('DOMContentLoaded', () => {
     new AdvancedASCIIArtGenerator();
     
+    // Update about text when language changes
+    if (typeof updateUI === 'function') {
+        const originalUpdateUI = updateUI;
+        updateUI = function() {
+            originalUpdateUI();
+            const aboutText = document.getElementById('about-text');
+            if (aboutText) {
+                aboutText.textContent = getText('aboutText');
+            }
+        };
+    }
+    
     const style = document.createElement('style');
     style.textContent = `
         .notification.success {

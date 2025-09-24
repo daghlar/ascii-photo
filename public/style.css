@@ -68,13 +68,42 @@ header {
     position: relative;
 }
 
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.about-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.about-link:hover {
+    background: var(--primary-gradient);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.2);
+}
+
+.about-icon {
+    font-size: 1.1rem;
+}
+
 .language-selector {
-    position: absolute;
-    top: 0;
-    right: 0;
     display: flex;
     gap: 0.5rem;
-    z-index: 10;
 }
 
 .lang-btn {
@@ -716,5 +745,179 @@ select.btn:focus {
     
     .tip-icon {
         font-size: 2rem;
+    }
+}
+
+/* About Page Styles */
+.about-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.about-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: var(--shadow-heavy);
+    margin-bottom: 30px;
+}
+
+.about-card h2 {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-card h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin: 30px 0 15px 0;
+    border-bottom: 2px solid var(--primary-gradient);
+    padding-bottom: 10px;
+}
+
+.about-card p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.about-card ul {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.about-card li {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.tech-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.tech-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--glass-border);
+}
+
+.tech-item strong {
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.github-info {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--glass-border);
+    margin: 20px 0;
+}
+
+.github-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: var(--primary-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.github-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
+    background: var(--secondary-gradient);
+}
+
+.github-icon {
+    font-size: 1.2rem;
+}
+
+.back-section {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: var(--warning-gradient);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--glass-border);
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-heavy);
+    background: var(--dark-gradient);
+}
+
+.back-icon {
+    font-size: 1.3rem;
+}
+
+/* About Page Responsive */
+@media (max-width: 768px) {
+    .about-card {
+        padding: 20px;
+    }
+    
+    .about-card h2 {
+        font-size: 2rem;
+    }
+    
+    .about-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .tech-stack {
+        grid-template-columns: 1fr;
+    }
+    
+    .github-links {
+        flex-direction: column;
+    }
+    
+    .github-btn {
+        justify-content: center;
     }
 }

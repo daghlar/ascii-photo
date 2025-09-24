@@ -11,10 +11,16 @@
 <body>
     <div class="container">
         <header>
-            <div class="language-selector">
-                <button class="lang-btn" onclick="setLanguage('ru')" id="lang-ru">🇷🇺</button>
-                <button class="lang-btn" onclick="setLanguage('en')" id="lang-en">🇺🇸</button>
-                <button class="lang-btn" onclick="setLanguage('tr')" id="lang-tr">🇹🇷</button>
+            <div class="header-top">
+                <div class="language-selector">
+                    <button class="lang-btn" onclick="setLanguage('ru')" id="lang-ru">🇷🇺</button>
+                    <button class="lang-btn" onclick="setLanguage('en')" id="lang-en">🇺🇸</button>
+                    <button class="lang-btn" onclick="setLanguage('tr')" id="lang-tr">🇹🇷</button>
+                </div>
+                <a href="./about.html" class="about-link" id="about-link">
+                    <span class="about-icon">ℹ️</span>
+                    <span id="about-text">О проекте</span>
+                </a>
             </div>
             <h1 id="main-title">🎨 ASCII Арт Генератор</h1>
             <p id="main-subtitle">Превратите ваши изображения в потрясающие ASCII произведения искусства</p>
