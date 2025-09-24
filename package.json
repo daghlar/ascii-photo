@@ -1,0 +1,33 @@
+{
+  "name": "ascii-art-generator",
+  "version": "1.0.0",
+  "description": "Multi-language ASCII Art Generator with Russian, English, and Turkish support",
+  "main": "public/index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required'",
+    "start": "echo 'Deploy to Vercel for production'"
+  },
+  "keywords": [
+    "ascii",
+    "art",
+    "generator",
+    "image",
+    "converter",
+    "multilingual",
+    "russian",
+    "english",
+    "turkish"
+  ],
+  "author": "ASCII Art Generator",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "pillow": "^10.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}
